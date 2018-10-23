@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>lucky strike</title>
 </head>
 <body>
-$END$
+<script>
+    'use strict'
+
+    let ticketNum = +prompt("Введите шестизначный номер билета:");
+
+    let dig6 = ticketNum % 10;
+    let dig5 = parseInt(ticketNum / 10) % 10;
+    let dig4 = parseInt(ticketNum / 100) % 10;
+    let dig3 = parseInt(ticketNum / 1000) % 10;
+    let dig2 = parseInt(ticketNum / 10000) % 10;
+    let dig1 = parseInt(ticketNum / 100000) % 10;
+
+    let isLuckyNumber = dig1 + dig2 + dig3 === dig4 + dig5 + dig6;
+    if (isLuckyNumber) {
+      console.log("Поздраляю, у вас счастливый билет № " + ticketNum);
+    } else {
+      console.log("У вас самый обычный билет, не расстраивайтесь");
+    }
+</script>
 </body>
 </html>
