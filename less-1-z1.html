@@ -6,10 +6,11 @@
 </head>
 <body>
     <script>
-        'use strict'
+        'use strict';
 
         let cTemp = +prompt("Введите температуру в градусах по целсию");
         let cFar = (9 / 5) * cTemp + 32;
+        cFar = Math.round(cFar);
         alert(`${cTemp} \u2103 = ${cFar} \u2109`);
     </script>
 </body>
