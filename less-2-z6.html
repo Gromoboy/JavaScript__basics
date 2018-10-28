@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>урок 2 задание 6</title>
 </head>
 <body>
-$END$
+<script>
+  // TODO:
+  // Программа должна спросить у пользователя количество денег, которое он хочет положить в банк.
+  // Пользователь должен ввести целое число, а программа должна выдать соответствующее сообщение:
+  //   "Ваша сумма в 101 рубль успешно зачислена." - в случае если пользователь ввел 101.
+  //   "Ваша сумма в 10020 рублей успешно зачислена." - в случае если пользователь ввел 10020.
+  //  "Ваша сумма в 120104 рубля успешно зачислена." - в случае если пользователь ввел 120104.
+  // Если пользователь введет любое другое целое число, программа также должна выдать соответствующее сообщение,
+  // в котором будет отображено это число, а также поставить верное окончание в слове "рубль".
+  // Для получения верного склонения слова (любого слова с числом) вам необходимо создать функцию.
+  function getAmountFromUser(msg) {
+    let amount = +prompt(msg);
+    if (Number.isNaN(amount) || !Number.isInteger(amount) || amount < 1)
+      return getAmountFromUser("Ввудите сумму ввиде целого положительного числа:");
+    return amount;
+  }
+  function rubToStr(amount){
+    //guard
+    if (typeof(amount) === 'string') amount = Number.parseInt(amount);
+    if (Number.isNaN(amount)) return null;
+
+    let lastDigit = Math.floor(amount % 10), penult = Math.floor(amount / 10) % 10;
+    if      (lastDigit === 1 && penult !== 1 )                      return amount + ' рубль';
+    else if (lastDigit === 2 || lastDigit === 3 || lastDigit === 4) return amount + ' рубля';
+    return amount + ' рублей';
+  }
+  let amount = getAmountFromUser("Введите количество денег, которые вы хотите разместить в банке:");
+  alert(`Ваша сумма в ${rubToStr(amount)} успешно зачислена.`);
+  console.log(rubToStr(amount));
+</script>
 </body>
 </html>
