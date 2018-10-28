@@ -2,9 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>урок 1 задание 2</title>
 </head>
 <body>
-$END$
+<script>
+  // Объявить две переменные a и b и задать им целочисленные произвольные начальные значения.
+  //   Затем написать скрипт, который работает по следующему принципу:
+  //   - если a и b положительные, вывести их разность (ноль можно считать положительным числом);
+  // - если а и b отрицательные, вывести их произведение;
+  // - если а и b разных знаков, вывести их сумму;
+
+  'use strict';
+
+  function getRandomInt(min=-5, max=5){
+    //let r = Math.random() * 10 - 5;
+    let r = Math.random() * (max - min) + min;
+    r = Math.round(r);
+    if (r === -0) return 0;
+    return r;
+  }
+  let a = getRandomInt(), b = getRandomInt(), result, op;
+
+  if (a >= 0 && b >= 0){
+    result = a - b;
+    op = '-';
+  } else if( a < 0 && b < 0){
+    result = a * b;
+    op = 'x';
+  } else{
+    result = a + b;
+    op = '+';
+  }
+
+  console.log(a,op,b);
+  console.log(result);
+
+</script>
 </body>
 </html>
