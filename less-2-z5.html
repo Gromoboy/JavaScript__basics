@@ -2,9 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>урок 2 задание 5</title>
 </head>
 <body>
-$END$
+<script src="less-2-z4.html"></script>
+<script>
+  // Реализовать функцию с тремя параметрами: 
+  // function mathOperation(arg1, arg2, operation),
+  // где arg1, arg2 – значения аргументов, 
+  // operation – строка с названием операции. 
+  // В зависимости от переданного значения операции (использовать switch) 
+  // выполнить одну из арифметических операций
+  // (использовать функции из задания 4) и вернуть полученное значение.
+  function mathOperation(arg1, arg2, operation) {
+    switch (operation) {
+      case '+':
+        return add(arg1, arg2);
+        break;
+      case '-':
+        return subt(arg1, arg2);
+        break;
+      case '*':
+        return product(arg1, arg2);
+        break;
+      case '/':
+        return div(arg1, arg2);
+      default:
+        return null;
+    }
+  }
+</script>
 </body>
 </html>
