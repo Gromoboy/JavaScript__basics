@@ -14,10 +14,17 @@
 
   'use strict';
 
-  function getRandomInt(min=-5, max=5){
+  /**
+   * Функция для получения пвсевдослучайного числа
+   * из промежутка от min до max
+   * @param {number} [min = -5] - минимальное число из набора чисел (левая граница промежутка)
+   * @param {number} [max = 5] - максимальное число из набора чисел (правая граница промежутка)
+   * @returns {number} - пвсевдослучайное число из заданного набора чисел
+   */
+  function getRandomInt(min=-5, max=5) {
     //let r = Math.random() * 10 - 5;
     let r = Math.random() * (max - min) + min;
-    r = Math.round(r);
+    r = Math.floor(r);
     if (r === -0) return 0;
     return r;
   }
@@ -26,15 +33,15 @@
   if (a >= 0 && b >= 0){
     result = a - b;
     op = '-';
-  } else if( a < 0 && b < 0){
+  } else if ( a < 0 && b < 0) {
     result = a * b;
     op = 'x';
-  } else{
+  } else {
     result = a + b;
     op = '+';
   }
 
-  console.log(a,op,b);
+  console.log(a, op, b);
   console.log(result);
 
 </script>
