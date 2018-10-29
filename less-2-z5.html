@@ -14,17 +14,22 @@
   // В зависимости от переданного значения операции (использовать switch) 
   // выполнить одну из арифметических операций
   // (использовать функции из задания 4) и вернуть полученное значение.
+  /**
+   * функция математической операции над двумя числами
+   * @param {number} arg1 - первый операнд
+   * @param {number} arg2 - второй операнд
+   * @param {string} operation - символ математической операции
+   * @returns {number, null} результат математической операции над двумя
+   * переданными в функцию числами
+   */
   function mathOperation(arg1, arg2, operation) {
     switch (operation) {
       case '+':
         return add(arg1, arg2);
-        break;
       case '-':
         return subt(arg1, arg2);
-        break;
       case '*':
         return product(arg1, arg2);
-        break;
       case '/':
         return div(arg1, arg2);
       default:
