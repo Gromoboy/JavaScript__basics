@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>урок 3 зад 4</title>
+</head>
+<body>
+<script>
+  // С помощью цикла while вывести все простые числа в промежутке от 0 до 100
+  // (можно без оптимизаций).
+  let i = 1;
+
+  mainCycle:
+  while (i < 100) {
+
+    i++;
+    for (let j =2; j < i; j++) {
+      if (i % j === 0) {
+        continue mainCycle;
+      }
+    }
+    
+    console.log(i);
+  }
+</script>
+</body>
+</html>
