@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>урок 3 задание 3</title>
+</head>
+<body>
+<script>
+//   Нарисовать горку с помощью console.log (используя цикл for),
+//    как показано на рисунке,
+//    только у вашей горки должно быть 20 рядов, а не 5:
+//
+//   ```
+// x
+// xxx
+// xxxxx
+// xxxxxxx
+// xxxxxxxxx
+// ```
+  'use strict';
+
+  for (let i = 0, prod = 1, step = 'x'; i < 20; i++, prod +=2) {
+
+    if (i !== 0) {
+      step += 'xx';
+    }
+
+    console.log(step);
+  }
+</script>
+</body>
+</html>
