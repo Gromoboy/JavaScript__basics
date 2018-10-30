@@ -31,26 +31,40 @@
     [7, 4, 1],
   ];
 
-  let maxSumMassIdx = 0, massSum = arr[0][0] + arr[0][1] + arr[0][2];
-  for (let i = 0; i < arr.length; i++) {
-    let currMassSum = arr[i][0] + arr[i][1] + arr[i][2];
-    if (currMassSum > massSum) {
-      massSum = currMassSum;
-      maxSumMassIdx = i;
+  let maxSumArrIdx = 0, maxSumArray = sumArray(arr[0]);
+  for (let i = 1; i < arr.length; i++) {
+    let curArrSum = sumArray(arr[i])
+    if (curArrSum > maxSumArray) {
+      maxSumArray = curArrSum;``
+      maxSumArrIdx = i;
     }
   }
 
-  console.log(maxSumMassIdx);
+  console.log(maxSumArrIdx);
 
-  let min = arr[maxSumMassIdx][0];
+  let min = arr[maxSumArrIdx][0];
 
-  for (let i = 1; i < arr[maxSumMassIdx].length; i++) {
-    if (arr[maxSumMassIdx][i] < min) {
-      min = arr[maxSumMassIdx][i];
+  for (let i = 1; i < arr[maxSumArrIdx].length; i++) {
+    if (arr[maxSumArrIdx][i] < min) {
+      min = arr[maxSumArrIdx][i];
     }
   }
 
   console.log(min);
+
+/**
+ * Суммирует элементы массива
+ * @param {[number]} arr - массив чисел
+ * @returns {number} - сумма всех элементов массива
+ */
+function sumArray(arr) {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i];
+    }
+
+    return sum;
+  }
 </script>
 </body>
 </html>
