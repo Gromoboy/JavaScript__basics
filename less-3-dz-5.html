@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>урок 3 задание 5</title>
+</head>
+<body>
+<script>
+//   Дан массив (создать такой же, с такими же значениями):
+//
+//   ```
+// const arr = [
+//   [2, 4, 6],
+//   [1, 5, 10],
+//   [7, 4, 1],
+// ];
+// ```
+//
+//   Задания:
+//   1. Найти массив, у которого сумма всех чисел максимальна,
+//      вывести в console.log индекс этого массива.
+//   2. Получить и вывести в console.log минимальное значение
+//      найденное в массиве, который мы получили в
+//      первом пункте.
+
+  'use strict';
+
+  const arr = [
+    [2, 4, 6],
+    [1, 5, 10],
+    [7, 4, 1],
+  ];
+
+  let maxSumMassIdx = 0, massSum = arr[0][0] + arr[0][1] + arr[0][2];
+  for (let i = 0; i < arr.length; i++) {
+    let currMassSum = arr[i][0] + arr[i][1] + arr[i][2];
+    if (currMassSum > massSum) {
+      massSum = currMassSum;
+      maxSumMassIdx = i;
+    }
+  }
+
+  console.log(maxSumMassIdx);
+
+  let min = arr[maxSumMassIdx][0];
+
+  for (let i = 1; i < arr[maxSumMassIdx].length; i++) {
+    if (arr[maxSumMassIdx][i] < min) {
+      min = arr[maxSumMassIdx][i];
+    }
+  }
+
+  console.log(min);
+</script>
+</body>
+</html>
