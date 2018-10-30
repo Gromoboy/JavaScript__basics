@@ -22,6 +22,28 @@
 
     console.log(i);
   }
+  /**
+   * Определяет переданное в параметре число является простым или нет
+   * @param {number | string } num - число которое нужно определить простое или нет
+   * @returns {boolean} если число простое возвращает true, иначе false
+   */
+  function isPrimeNumber(num) {
+    // guard
+    if (typeof(num) === 'string') {
+      num = +num;
+    }
+    if (Number.isNaN(num)) {
+      return false;
+    }
+
+    for (let i = 2; i < num; i++) {
+      if (num % i === 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 </script>
 </body>
 </html>
