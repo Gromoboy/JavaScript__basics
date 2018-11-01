@@ -8,44 +8,21 @@
 <script>
   // С помощью цикла while вывести все простые числа в промежутке от 0 до 100
   // (можно без оптимизаций).
-  console.time('primeNum');
-  let i = 1;
+  console.time();
   let count = 0, sieve = [2];
 
-  mainCycle:
-  while (i < 1000000) {
+  for (let i = 3; i < 1000000; i+=2) {
 
-    i++;
-    if(!isPrimeNumberSieve(i,sieve)) continue;
-    count++;
-    console.log(i);
+    if(!isPrimeNumberFast(i,sieve)) continue;
+    // count++;
   }
-  console.log(count);
-  console.timeEnd('primeNum');
-  /**
-   * Определяет переданное в параметре число является простым или нет
-   * @param {number | string } num - число которое нужно определить простое или нет
-   * @returns {boolean} если число простое возвращает true, иначе false
-   */
-  function isPrimeNumber(num) {
-    // guard
-    if (typeof(num) === 'string') {
-      num = +num;
-    }
-    if (Number.isNaN(num)) {
-      return false;
-    }
+  console.log(sieve);
+  // console.log(count);
+  console.timeEnd();
 
-    for (let i = 2; i < num; i++) {
-      if (num % i === 0) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-  function isPrimeNumberSieve(num, sieve) {
-    for (let i = 0; i < sieve.length; i++) {
+  function isPrimeNumberFast(num, sieve) {
+    let limit = Math.floor(Math.sqrt(num));
+    for (let i = 1; i < limit; i++) {
       if (num % sieve[i] === 0) return false;
     }
     sieve.push(num);
