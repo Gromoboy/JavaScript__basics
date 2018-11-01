@@ -19,25 +19,22 @@
 // ```
   'use strict';
 
-  let i = 0, msg;
+  let i = 0;
 
   do {
-
+    let msg;
     if (i === 0) {
       msg = i + ' - это ноль';
-    }
-    else if (i % 2 === 0) {
+    } else if (i % 2 === 0) {
       msg = `${i} - четное число`;
-    }
-    else {
+    } else {
       msg = `${i} - нечетное число`;
     }
 
     console.log(msg);
 
     i++;
-
-  } while (i <= 10)
+  } while (i <= 10);
 
 </script>
 </body>
