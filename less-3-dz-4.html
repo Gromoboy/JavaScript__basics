@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>урок 3 зад 4</title>
+</head>
+<body>
+<script>
+  // С помощью цикла while вывести все простые числа в промежутке от 0 до 100
+  // (можно без оптимизаций).
+  let i = 1;
+
+  mainCycle:
+  while (i < 100) {
+
+    i++;
+    for (let j =2; j < i; j++) {
+      if (i % j === 0) {
+        continue mainCycle;
+      }
+    }
+
+    console.log(i);
+  }
+  /**
+   * Определяет переданное в параметре число является простым или нет
+   * @param {number | string } num - число которое нужно определить простое или нет
+   * @returns {boolean} если число простое возвращает true, иначе false
+   */
+  function isPrimeNumber(num) {
+    // guard
+    if (typeof(num) === 'string') {
+      num = +num;
+    }
+    if (Number.isNaN(num)) {
+      return false;
+    }
+
+    for (let i = 2; i < num; i++) {
+      if (num % i === 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+</script>
+</body>
+</html>
