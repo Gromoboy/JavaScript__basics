@@ -91,6 +91,12 @@
     const game = {
       settings,
       player,
+      /**
+       * Проверка выхода за границы карты игрока
+       * @param {int} - направление движения
+       * @return {boolean} - false при движении за границу,
+       * иначе возвращает true
+       */
       isInLimitsOfMap(dir) {
         if ((dir === 7 || dir === 8 || dir === 9) && this.player.y === 0) {
           return false;
