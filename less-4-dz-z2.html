@@ -95,7 +95,11 @@
         if ((dir === 7 || dir === 8 || dir === 9) && this.player.y === 0) {
           return false;
         } else if ((dir === 7 || dir === 4 || dir === 1) && this.player.x === 0) {
-            return false;
+          return false;
+        } else if ((dir === 2 || dir === 1 || dir === 3) && this.player.y === this.settings.rowsCount - 1) {
+          return false;
+        } else if ((dir === 3 || dir === 6 || dir === 9) && this.player.x === this.settings.colsCount - 1) {
+          return false;
         }
 
         return true;
