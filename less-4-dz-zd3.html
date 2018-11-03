@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Game</title>
+</head>
+<body>
+<script>
+  // 3**. На базе игры (приняв за пример), созданной на уроке,
+  // реализовать игру «Кто хочет стать миллионером?».
+  // Т.е. у вас должен быть главный объект содержащий
+  // всю логику игры, который будет иметь методы, например
+  // метод run, возможно метод init и т.д.
+  //   В игре должны быть заранее подготовлены список
+  // вопросов и ответов (как минимум 5 вопросов).
+  // Игра должна приветствовать пользователя, после
+  // чего задавать вопросы пользователю и предлагать варианты
+  // ответов в виде теста, например:
+  // Сколько букв в слове "привет":
+  // a. Пять.
+  //   b. Шесть.
+  //   c. Семь.
+  //   d. Куда я попал?
+  //   Проверять правильный вариант выбрал пользователь или нет,
+  // необходимо вести счет.
+  //   По окончании игры, когда было задано 5 вопросов, вы должны
+  // сообщить пользователю его счет и предложить
+  // сыграть снова.
+  //   Также должна быть возможность выхода из игры заранее, если
+  // пользователю надоело играть.
+  const questions = [
+    {
+      text: 'Сколько букв в слове "привет"?',
+      variants: {
+      a:"Пять",
+      b:"Шесть",
+      c:"Семь",
+      d:"Куда я попал?",
+      },
+      rightAnsIdx:"b"
+    },
+    {
+      text: ' Кто или что со мной "по моему хотенью" в детской песне?',
+      variants: {
+        a: "морской тюлень",
+        b: "лесной олень",
+        c: "трухлявый пень",
+        d: "сплошная лень"
+      },
+      rightAnsIdx: "b",
+    },
+    {
+      text: 'Какой ответ традиционно дают на загадку: "Зимой и летом одним цветом"?',
+      variants: {
+        a: "ёлка",
+        b: "холодильник",
+        c: "рояль",
+        d: "шляпа Боярского",
+      },
+      rightAnsIdx: "a"
+    },
+    {
+      text: "Кто такая жужелица?",
+      variants: {
+        a: "птица",
+        b: "рыба",
+        c: "ящиреца",
+        d: "насекомое",
+      },
+      rightAnsIdx: "d"
+    },
+    {
+      text: "Какую причёску носит Джек Воробей в \"Пиратах Карибского моря\"?",
+      variants: {
+        a: "ирокез",
+        b: "полубокс",
+        c: "дреды",
+        d: "конский хвост"
+      },
+      rightAnsIdx: "c",
+    }
+
+  ];
+  const player = {
+    score: 0,
+    resetScore(num = 0) {
+      this.score = num;
+    }
+  };
+
+  const game = {
+    questions,
+    questionIndex: 0,
+    player,
+    /**
+     * функция запуска игры
+     */
+    run() {
+      this.player.resetScore();
+      alert("Приветствуем вас в игре 'Кто хочет стать миллионером'\n\nИнтерфейс игры: \nвыберите один из четырех"+
+      "ответов, и введите соответствующею ему букву. \n Для выхода из игры введите букву 'q'.");
+      while (true) {
+        const userAnswer = this.getAnswer();
+        if (!this.validateAnswer(userAnswer)) {
+          continue;
+        }
+        if (this.userWantExit(userAnswer)) {
+          return;
+        }
+        this.isAnswerCorrect(userAnswer);
+        this.questionIndex++;
+        if (this.isGameOver()){
+          const again = confirm(`Количество правильных ответов: ${this.player.score} из ${this.questions.length}
+          Хотите сыграть еще раз?`);
+          if (again === true) {
+            this.player.resetScore();
+            this.questionIndex = 0;
+            continue;
+          }
+          return;
+        }
+      }
+    },
+    /**
+     * Получаем ответ от пользователя.
+     * @returns {string} Строка ответа пользователя.
+     */
+    getAnswer() {
+      return prompt(this.getCurrentQuestionString());
+    },
+    /**
+     * Возвращает строку с текущим вопросом и вариантами ответов.
+     * @returns {string} Строку с текущим вопросом и вариантами ответов.
+     */
+    getCurrentQuestionString() {
+      const i = this.questionIndex;
+      let msg = `${this.questionIndex + 1}. ${this.questions[i].text} \n`;
+      for (const key in this.questions[i].variants) {
+        msg += `${key} - ${this.questions[i].variants[key]}\n`;
+      }
+
+      return msg;
+    },
+    /**
+     * Проверяем ответ пользователя на корректность ввода.
+     * @param {string} userAnswer Ответ пользователя.
+     * @returns {boolean} true если пользователь ввел корректные данные, иначе false.
+     */
+    validateAnswer(userAnswer) {
+      return ['a', 'b', 'c', 'd', 'q', 'exit', null].includes(userAnswer);
+
+    },
+
+    /**
+     * Проверяет ввел ли пользователь вместо ответа информацию для выхода из игры.
+     * @param {string} userAnswer Ответ пользователя.
+     * @returns {boolean} true, если пользователь хотел выйти, false если нет.
+     */
+    userWantExit(userAnswer) {
+      return userAnswer === "q" || userAnswer === "exit" || userAnswer === null;
+
+    },
+
+    /**
+     * Проверяет является ли ответ, переданный в функцию верным.
+     * @param {string} userAnswer Ответ пользователя.
+     * @returns {boolean} true, если ответ пользователя верный, false если нет.
+     */
+    isAnswerCorrect(userAnswer) {
+      if (this.questions[this.questionIndex].rightAnsIdx === userAnswer) {
+        this.player.score++;
+        return true;
+      }
+      return false;
+    },
+
+    /**
+     * Проверяет закончилась ли игра.
+     * @returns {boolean} true, если было задано 5 вопросов, иначе false.
+     */
+    isGameOver() {
+      return this.questionIndex === this.questions.length;
+    }
+
+  };
+  game.run();
+</script>
+</body>
+</html>
