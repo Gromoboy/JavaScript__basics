@@ -81,22 +81,16 @@
     }
 
   ];
-  const player = {
-    score: 0,
-    resetScore(num = 0) {
-      this.score = num;
-    }
-  };
+
 
   const game = {
     questions,
     questionIndex: 0,
-    player,
+    score: 0,
     /**
      * функция запуска игры
      */
     run() {
-      this.player.resetScore();
       alert("Приветствуем вас в игре 'Кто хочет стать миллионером'\n\nИнтерфейс игры: \nвыберите один из четырех"+
       "ответов, и введите соответствующею ему букву. \n Для выхода из игры введите букву 'q'.");
       while (true) {
@@ -107,13 +101,15 @@
         if (this.userWantExit(userAnswer)) {
           return;
         }
-        this.isAnswerCorrect(userAnswer);
+        if (this.isAnswerCorrect(userAnswer)) {
+                  this.score++;
+        }
         this.questionIndex++;
         if (this.isGameOver()){
-          const again = confirm(`Количество правильных ответов: ${this.player.score} из ${this.questions.length}
+          const again = confirm(`Количество правильных ответов: ${this.score} из ${this.questions.length}
           Хотите сыграть еще раз?`);
-          if (again === true) {
-            this.player.resetScore();
+          if (again) {
+            this.score = 0;
             this.questionIndex = 0;
             continue;
           }
@@ -167,11 +163,8 @@
      * @returns {boolean} true, если ответ пользователя верный, false если нет.
      */
     isAnswerCorrect(userAnswer) {
-      if (this.questions[this.questionIndex].rightAnsIdx === userAnswer) {
-        this.player.score++;
-        return true;
-      }
-      return false;
+      return this.questions[this.questionIndex].rightAnsIdx === userAnswer;
+
     },
 
     /**
