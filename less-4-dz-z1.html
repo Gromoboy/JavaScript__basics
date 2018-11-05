@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>урок 4 Дз</title>
+</head>
+<body>
+<script>
+//   1. Написать функцию, преобразующую число в объект. Передавая на вход число в диапазоне [0, 999],
+//     мы должны получить на выходе объект, в котором в соответствующих свойствах описаны разряды числа:
+//     - единицы (в свойстве firstDigit)
+//   - десятки (в свойстве secondDigit)
+//   - сотни (в свойстве thirdDigit)
+//   Например, для числа 45 мы должны получить следующий объект:
+//
+//     ```
+// {
+//   firstDigit: 5,
+//   secondDigit: 4,
+//   thirdDigit: 0,
+// }
+// ```
+//
+//   Если число было передано вне [0, 999] диапазона, не целое число или вообще не число,
+//     необходимо выдать соответствующее сообщение с помощью console.log и вернуть пустой объект.
+  'use strict';
+
+  let num = getNumObject(45);
+  console.log(num);
+
+  console.log(getNumObject(13.5));
+  console.log(getNumObject("gohome"));
+  console.log(getNumObject(-1));
+  console.log(getNumObject(200000));
+
+/**
+ * Функция разбивает число на единицы, десятки, сотни и возвращает объект с этими свойствами
+ * @param {int} num - целое число в диапазоне [0,999]
+ * @returns {object}
+ */
+function getNumObject(num) {
+    let result = {};
+
+    if (!Number.isInteger(num) || num < 0 || num > 999) {
+      console.log("Аргумент не удовлетворяет условиям");
+      return result;
+    }
+
+    result.firstDigit = num % 10;
+    result.secondDigit = Number.parseInt(num / 10) % 10;
+    result.thirdDigit = Number.parseInt(num / 100) % 10;
+
+    return result;
+}
+</script>
+</body>
+</html>
