@@ -25,20 +25,20 @@
 //     необходимо выдать соответствующее сообщение с помощью console.log и вернуть пустой объект.
   'use strict';
 
-  let num = getNumObgect(45);
+  let num = getNumObject(45);
   console.log(num);
 
-  console.log(getNumObgect(13.5));
-  console.log(getNumObgect("gohome"));
-  console.log(getNumObgect(-1));
-  console.log(getNumObgect(200000));
+  console.log(getNumObject(13.5));
+  console.log(getNumObject("gohome"));
+  console.log(getNumObject(-1));
+  console.log(getNumObject(200000));
 
 /**
  * Функция разбивает число на единицы, десятки, сотни и возвращает объект с этими свойствами
  * @param {int} num - целое число в диапазоне [0,999]
  * @returns {object}
  */
-function getNumObgect(num) {
+function getNumObject(num) {
     let result = {};
 
     if (!Number.isInteger(num) || num < 0 || num > 999) {
