@@ -45,7 +45,7 @@
 
     /**
      * Двигает игрока по переданному направлению.
-     * @param {int} direction Направление, в котором будет движение.
+     * @param {object} point Направление, в котором будет движение.
      */
     move(point) {
       this.x = point.x;
@@ -109,19 +109,17 @@
     player,
     /**
      * Проверка выхода за границы карты игрока
-     * @param {int} dir - направление движения
+     * @param {object} point - направление движения
      * @return {boolean} - false при движении за границу,
      * иначе возвращает true
      */
     isInLimitsOfMap(point) {
-      if (point.x < 0 ||
-        point.y < 0 ||
-        point.x >= this.settings.colsCount ||
-        point.y >= this.settings.rowsCount) {
-        return false;
-      }
+      return point.x >= 0 &&
+             point.y > 0 &&
+             point.x <= this.settings.colsCount &&
+             point.y <= this.settings.rowsCount;
 
-      return true;
+
     },
     /**
      * Запускает игру.
