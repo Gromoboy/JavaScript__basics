@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Шахматы</title>
+  <style>
+    table {
+      margin: auto;
+      border-collapse: collapse;
+      outline: 2px solid black;
+    }
+    tr {
+      /*width: 50px;*/
+      /*height: 50px;*/
+    }
+    td {
+      border: 1px solid #888888;
+      width: 50px;
+      height: 50px;
+      background-color: #EEEEEE;
+      text-align: center;
+      font-size: 2em;
+    }
+    .cellBlack {
+      background: gray;
+      /*color: white;*/
+    }
+  </style>
+
+</head>
+<body>
+<table id="gameBoard"></table>
+<script src="jas/dz-5.js"></script>
+<script>
+   window.addEventListener('load', showGameBoard);
+</script>
+</body>
+</html>
