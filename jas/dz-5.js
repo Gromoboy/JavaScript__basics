@@ -1,7 +1,7 @@
 // 1. Создать функцию, генерирующую шахматную доску. При этом можно использовать любые html-теги по своему желанию.
 //   Доска должна быть разлинована соответствующим образом, т.е. чередовать черные и белые ячейки.
 //   Строки должны нумероваться числами от 1 до 8, столбцы – латинскими буквами A, B, C, D, E, F, G, H.
-// function showGameBoard() {
+function showGameBoard() {
 
   "use strict";
 
@@ -13,6 +13,25 @@
     width: 8,
     height:8,
     titleBox:1,
+    figures: [
+      {name: '♙', color: 'w', pos: 'a2'},
+      {name: '♙', color: 'w', pos: 'b2'},
+      {name: '♙', color: 'w', pos: 'c2'},
+      {name: '♙', color: 'w', pos: 'd2'},
+      {name: '♙', color: 'w', pos: 'e2'},
+      {name: '♙', color: 'w', pos: 'f2'},
+      {name: '♙', color: 'w', pos: 'g2'},
+      {name: '♙', color: 'w', pos: 'h2'},
+      {name: '♖', color: 'b', pos: 'a1'},
+      {name: '♘', color: 'b', pos: 'b1'},
+      {name: '♗', color: 'b', pos: 'c1'},
+      {name: '♕', color: 'b', pos: 'd1'},
+      {name: '♔', color: 'b', pos: 'e1'},
+      {name: '♗', color: 'b', pos: 'f1'},
+      {name: '♘', color: 'b', pos: 'g1'},
+      {name: '♖', color: 'b', pos: 'h1'},
+    ],
+
     /**
      * Метод отображения карты (игрового поля).
      */
@@ -23,14 +42,21 @@
         for (let j = 0; j < this.width + this.titleBox; j++) {
           let cell = document.createElement("td");
           elRow.appendChild(cell);
+
+          let cellChar = String.fromCharCode(0o100 + j);
+          let cellNum = this.height - i + 1;
+
           if (i === 0 && j > 0) {
-            cell.innerText = String.fromCharCode(0o100 + j);
+            cell.innerText = cellChar;
           }
           if (j === 0 && i > 0) {
-            cell.innerText = this.height - i + 1;
+            cell.innerText = cellNum;
+          }
+          if (i > 0 && j > 0) {
+            cell.setAttribute("data-cellNum", cellChar + cellNum );
           }
           if (this.isCellIsBlack(i, j)) {
-            cell.style.background = "black";
+            cell.classList.add("cellBlack");
           }
         }
       }
@@ -50,4 +76,4 @@
 // Запускаем метод отображения карты.
   board.renderMap();
 
-// }
+}
