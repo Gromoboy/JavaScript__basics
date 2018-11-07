@@ -14,22 +14,38 @@ function showGameBoard() {
     height:8,
     titleBox:1,
     figures: [
-      {name: '♙', color: 'w', pos: 'a2'},
-      {name: '♙', color: 'w', pos: 'b2'},
-      {name: '♙', color: 'w', pos: 'c2'},
-      {name: '♙', color: 'w', pos: 'd2'},
-      {name: '♙', color: 'w', pos: 'e2'},
-      {name: '♙', color: 'w', pos: 'f2'},
-      {name: '♙', color: 'w', pos: 'g2'},
-      {name: '♙', color: 'w', pos: 'h2'},
-      {name: '♖', color: 'b', pos: 'a1'},
-      {name: '♘', color: 'b', pos: 'b1'},
-      {name: '♗', color: 'b', pos: 'c1'},
-      {name: '♕', color: 'b', pos: 'd1'},
-      {name: '♔', color: 'b', pos: 'e1'},
-      {name: '♗', color: 'b', pos: 'f1'},
-      {name: '♘', color: 'b', pos: 'g1'},
-      {name: '♖', color: 'b', pos: 'h1'},
+      {name: '♙', pos: 'A2'},
+      {name: '♙', pos: 'B2'},
+      {name: '♙', pos: 'C2'},
+      {name: '♙', pos: 'D2'},
+      {name: '♙', pos: 'E2'},
+      {name: '♙', pos: 'F2'},
+      {name: '♙', pos: 'G2'},
+      {name: '♙', pos: 'H2'},
+      {name: '♖', pos: 'A1'},
+      {name: '♘', pos: 'B1'},
+      {name: '♗', pos: 'C1'},
+      {name: '♕', pos: 'D1'},
+      {name: '♔', pos: 'E1'},
+      {name: '♗', pos: 'F1'},
+      {name: '♘', pos: 'G1'},
+      {name: '♖', pos: 'H1'},
+      {name: '♟', pos: 'A7'},
+      {name: '♟', pos: 'B7'},
+      {name: '♟', pos: 'C7'},
+      {name: '♟', pos: 'D7'},
+      {name: '♟', pos: 'E7'},
+      {name: '♟', pos: 'F7'},
+      {name: '♟', pos: 'G7'},
+      {name: '♟', pos: 'H7'},
+      {name: '♜', pos: 'A8'},
+      {name: '♞', pos: 'B8'},
+      {name: '♝', pos: 'C8'},
+      {name: '♛', pos: 'D8'},
+      {name: '♚', pos: 'E8'},
+      {name: '♝', pos: 'F8'},
+      {name: '♞', pos: 'G8'},
+      {name: '♜', pos: 'H8'},
     ],
 
     /**
@@ -53,12 +69,23 @@ function showGameBoard() {
             cell.innerText = cellNum;
           }
           if (i > 0 && j > 0) {
-            cell.setAttribute("data-cellNum", cellChar + cellNum );
+            cell.setAttribute("data-cell-num", cellChar + cellNum );
           }
           if (this.isCellIsBlack(i, j)) {
             cell.classList.add("cellBlack");
           }
         }
+      }
+    },
+    renderFigures() {
+      const cells = this.gameContainerEl.getElementsByTagName("td");
+      // console.log(cells);
+      for (let i = 1; i < cells.length; i++) {
+        this.figures.forEach(fig => {
+          if (fig.pos === cells[i].dataset.cellNum) {
+            cells[i].innerText = fig.name;
+          }
+        });
       }
     },
 
@@ -75,5 +102,6 @@ function showGameBoard() {
 
 // Запускаем метод отображения карты.
   board.renderMap();
+  board.renderFigures();
 
 }
