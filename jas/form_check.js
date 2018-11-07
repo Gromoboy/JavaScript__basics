@@ -30,17 +30,37 @@
   if (userTel.value.length !== 11) {
     event.preventDefault();
     userTel.classList.add("is-invalid");
+  } else {
+    if( userTel.classList.contains("is-invalid")) {
+      userTel.classList.remove("is-invalid");
+    }
+    userTel.classList.add("is-valid");
   }
   if (userName.value.length < 1 || userName.value.length > 50) {
     event.preventDefault();
     userName.classList.add("is-invalid");
+  } else {
+    if( userName.classList.contains("is-invalid")) {
+      userName.classList.remove("is-invalid");
+    }
+    userName.classList.add("is-valid");
   }
   if (userPass.value.length < 5 || userPass.value.length > 50) {
     event.preventDefault();
     userPass.classList.add("is-invalid");
+  } else {
+    if( userPass.classList.contains("is-invalid")) {
+      userPass.classList.remove("is-invalid");
+    }
+    userPass.classList.add("is-valid");
   }
   if (userRepP.value !== userPass.value) {
     event.preventDefault();
     userRepP.classList.add("is-invalid");
+  } else {
+    if( userRepP.classList.contains("is-invalid")) {
+      userRepP.classList.remove("is-invalid");
+    }
+    userRepP.classList.add("is-valid");
   }
 }
