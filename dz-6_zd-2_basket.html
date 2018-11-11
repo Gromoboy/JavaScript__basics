@@ -2,9 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Корзина</title>
+  <link rel="stylesheet" href="css/basket.css">
 </head>
 <body>
-$END$
+  <main>
+    <section class="catalog">
+      <div class="product">
+        <img src="img/ecodrift-v8s-158.jpg" alt="prod-1">
+        <p class="product-name">Ecodrift v8s</p>
+        <span class="product-price">20 000 руб.</span>
+        <button class="buy-btn" data-name="ecodrift" data-price="20000">Купить</button>
+      </div>
+      <div class="product">
+        <img src="img/ninebot-one-z6.jpg" alt="prod-2">
+        <p class="product-name">Ninebot one Z6</p>
+        <span class="product-price">35 000 руб.</span>
+        <button class="buy-btn" data-name="ninebot" data-price="35000">Купить</button>
+      </div>
+      <div class="product">
+        <img src="img/kingsong-18-1360.jpg" alt="prod-3">
+        <p class="product-name">Kingsong 18</p>
+        <span class="product-price">40 000 руб.</span>
+        <button class="buy-btn" data-name="kinksong" data-price="40000">Купить</button>
+      </div>
+    </section>
+    <table class="basket">
+
+    </table>
+  </main>
+  <script src="jas/basket.js">
+
+  </script>
 </body>
 </html>
+<!--Урок 6, задание 2:-->
+
+<!--Реализовать модуль корзины. У каждого товара есть кнопка «Купить», при нажатии на которую происходит
+ добавление имени и цены товара в блок корзины. Корзина должна уметь считать общую сумму заказа. Один товар
+ можно добавить несколько раз.-->

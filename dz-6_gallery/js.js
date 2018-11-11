@@ -14,10 +14,15 @@ const gallery = {
     previewSelector: '.mySuperGallery',
     openedImageWrapperClass: 'galleryWrapper',
     openedImageClass: 'galleryWrapper__image',
+    selectedImageEl: null,
     openedImageScreenClass: 'galleryWrapper__screen',
     openedImageCloseBtnClass: 'galleryWrapper__close',
     openedImageCloseBtnSrc: 'images/gallery/close.png',
-    openedImageLoadError: 'images/gallery/error.png'
+    openedImageLoadErrorSrc: 'images/gallery/error.png',
+    openedImagePreviosBtnClass: 'galleryWrapper__previos',
+    openedImagePreviosBtnSrc: 'images/gallery/left.svg',
+    openedImageNextBtnClass: 'galleryWrapper__next',
+    openedImageNextBtnSrc: 'images/gallery/right.svg'
   },
 
   /**
@@ -46,8 +51,11 @@ const gallery = {
     if (event.target.tagName !== 'IMG') {
       return;
     }
+
+    this.selectedImageEl = event.target;
     // Открываем картинку с полученным из целевого тега (data-full_image_url аттрибут).
-    this.openImage(event.target.dataset.full_image_url);
+    this.openImage(this.selectedImageEl.dataset.full_image_url);
+    console.log(event);
   },
 
   /**
@@ -79,6 +87,45 @@ const gallery = {
     // Возвращаем полученный из метода createScreenContainer контейнер.
     return this.createScreenContainer();
   },
+  /**
+   * Открывает соседнюю картинку в очереди
+   * @param {number} num при отрицательном значении использует соседа слева, иначе справа
+   */
+  showNeighborFullImg(num = 1) {
+    this.selectedImageEl = num < 0 ? this.getPrevImage() : this.getNextImage();
+    this.openImage(this.selectedImageEl.dataset.full_image_url);
+  },
+  /**
+   * Возвращает следующий элемент (картинку) от открытой или первую картинку в контейнере,
+   * если текущая открытая картинка последняя.
+   * @returns {Element} Следующую картинку от текущей открытой.
+   */
+  getNextImage() {
+    // Получаем элемент справа от текущей открытой картинки.
+    // Если элемент справа есть, его и возвращаем, если нет, то берем первый элемент в контейнере миниатюр.
+    let nextImg = this.selectedImageEl.nextElementSibling;
+
+    if (nextImg !== null) {
+      return nextImg
+    }
+
+    return this.selectedImageEl.parentElement.firstElementChild;
+  },
+
+  /**
+   * Возвращает предыдущий элемент (картинку) от открытой или последнюю картинку в контейнере,
+   * если текущая открытая картинка первая.
+   * @returns {Element} Предыдущую картинку от текущей открытой.
+   */
+  getPrevImage() {
+    // Получаем элемент слева от текущей открытой картинки.
+    // Если элемент слева есть, его и возвращаем, если нет, то берем последний элемент в контейнере миниатюр.
+    let prevImg = this.selectedImageEl.previousElementSibling ;
+    if (prevImg !== null) {
+      return prevImg;
+    }
+    return this.selectedImageEl.parentElement.lastElementChild;
+  },
 
   /**
    * Создает контейнер для открытой картинки.
@@ -103,9 +150,23 @@ const gallery = {
 
     // Создаем картинку, которую хотим открыть, ставим класс и добавляем ее в контейнер-обертку.
     const image = new Image();
-    // image.addEventListener("error", () => image.src = this.settings.openedImageLoadError);
+    // image.addEventListener("error", () => image.src = this.settings.openedImageLoadErrorSrc);
     image.classList.add(this.settings.openedImageClass);
     galleryWrapperElement.appendChild(image);
+
+    // Создаем кнопку для прокрутки полных картинок назад
+    const prevImgBtn = new Image();
+    prevImgBtn.classList.add(this.settings.openedImagePreviosBtnClass);
+    prevImgBtn.src = this.settings.openedImagePreviosBtnSrc;
+    prevImgBtn.addEventListener('click', () => this.showNeighborFullImg(-1));
+    galleryWrapperElement.appendChild(prevImgBtn);
+
+    // Создаем кнопку для прокрутки полных картинок назад
+    const nextImgBtn = new Image();
+    nextImgBtn.classList.add(this.settings.openedImageNextBtnClass);
+    nextImgBtn.src = this.settings.openedImageNextBtnSrc;
+    nextImgBtn.addEventListener('click', () => this.showNeighborFullImg());
+    galleryWrapperElement.appendChild(nextImgBtn);
 
     // Добавляем контейнер-обертку в тег body.
     document.body.appendChild(galleryWrapperElement);
