@@ -1,6 +1,7 @@
 "use strict";
 
 /**
+ * @property {HTMLElement} выбранная, текущая картинка
  * @property {Object} settings Объект с настройками галереи.
  * @property {string} settings.previewSelector Селектор обертки для миниатюр галереи.
  * @property {string} settings.openedImageWrapperClass Класс для обертки открытой картинки.
@@ -8,13 +9,14 @@
  * @property {string} settings.openedImageScreenClass Класс для ширмы открытой картинки.
  * @property {string} settings.openedImageCloseBtnClass Класс для картинки кнопки закрыть.
  * @property {string} settings.openedImageCloseBtnSrc Путь до картинки кнопки открыть.
+ * @property {string} settings.openedImagePreviosBtnClass селектор для картинки кнопки перезода на прошлую картинку
  */
 const gallery = {
+  selectedImageEl: null,
   settings: {
     previewSelector: '.mySuperGallery',
     openedImageWrapperClass: 'galleryWrapper',
     openedImageClass: 'galleryWrapper__image',
-    selectedImageEl: null,
     openedImageScreenClass: 'galleryWrapper__screen',
     openedImageCloseBtnClass: 'galleryWrapper__close',
     openedImageCloseBtnSrc: 'images/gallery/close.png',
@@ -66,7 +68,7 @@ const gallery = {
     let fullImgEl = this.getScreenContainer().querySelector(`.${this.settings.openedImageClass}`);
     const testImg = new Image();
     testImg.onload = () => fullImgEl.src = src;
-    testImg.onerror = () => fullImgEl.src = "images/gallery/error.png";
+    testImg.onerror = () => fullImgEl.src = this.settings.openedImageLoadErrorSrc;
     testImg.src = src;
     // Получаем контейнер для открытой картинки, в нем находим тег img и ставим ему нужный src.
     // this.getScreenContainer().querySelector(`.${this.settings.openedImageClass}`).src = src;

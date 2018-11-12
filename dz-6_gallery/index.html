@@ -33,24 +33,22 @@
       top: 0;
       right: 0;
     }
-    .galleryWrapper__previos {
+    .galleryWrapper__previos, .galleryWrapper__next {
       z-index: 101;
       width: 5%;
       position: absolute;
       top: 50%;
-      left:0;
+      margin: 0.5%;
+      transition: all 0.5s;
+    }
+    .galleryWrapper__next {
+      right:0;
     }
     .galleryWrapper__previos:hover, .galleryWrapper__next:hover{
       background: gray;
-      transition-duration: 0.3s;
     }
-
-    .galleryWrapper__next {
-      z-index: 101;
-      width: 5%;
-      position:absolute;
-      top:50%;
-      right:0;
+    .galleryWrapper__next:active, .galleryWrapper__previos:active {
+      background: darkgray;
     }
   </style>
 </head>
