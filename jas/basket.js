@@ -9,6 +9,7 @@ const basket = {
     countSelector: '#basket-count',
     priceSelector: '#basket-price',
     catalogSelector: '.catalog',
+    basketTableSelector: '.basket'
   },
   goods: [],
   countEl: null,
@@ -22,25 +23,44 @@ const basket = {
 
     document.querySelector(this.settings.catalogSelector)
             .addEventListener('click', e => this.buyClickHandler(e));
-    const basketEl = document.querySelector('.basket');
+
+    this.createBasket(this.settings.basketTableSelector);
+
+  },
+  /**
+   *Создает корзину для товаров в тэге <table> найденном по передаваемому селектоку
+   * @param {string} tableSelector
+   */
+  createBasket(tableSelector) {
+    const basketEl = document.querySelector(tableSelector);
+
     const rowForTotal = document.createElement('tr');
     basketEl.appendChild(rowForTotal);
+
+    // пара ячеек количество - значение
     let cell = document.createElement('td');
     cell.innerText = "Количество:";
     rowForTotal.appendChild(cell);
+
     this.countEl = document.createElement('td');
     this.countEl.id = this.settings.countSelector.substr(1);
     this.countEl.innerText = '0';
     rowForTotal.appendChild(this.countEl);
+
+    // пара ячеек Общая сумма значение
     cell = document.createElement('td');
     cell.innerText = "Общая сумма:";
     rowForTotal.appendChild(cell);
+
     this.priceEl = document.createElement('td');
     this.priceEl.id = this.settings.priceSelector.substr(1);
     this.priceEl.innerText = '0';
     rowForTotal.appendChild(this.priceEl);
-
   },
+  /**
+   * обработчик нажатия кнопок для каталога товаров
+   * @param {Event} event
+   */
   buyClickHandler(event) {
     if (!event.target.classList.contains('buy-btn')) {
       return;
@@ -77,8 +97,8 @@ const basket = {
    * @param goodPrice Цена товара.
    */
   add(goodName, goodPrice) {
-    const good = {name:goodName, price:goodPrice};
-    this.goods.push(good);
+
+    this.goods.push({name:goodName, price:goodPrice});
     this.render();
   },
 };
