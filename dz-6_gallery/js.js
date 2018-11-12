@@ -107,11 +107,7 @@ const gallery = {
     // Если элемент справа есть, его и возвращаем, если нет, то берем первый элемент в контейнере миниатюр.
     let nextImg = this.selectedImageEl.nextElementSibling;
 
-    if (nextImg !== null) {
-      return nextImg
-    }
-
-    return this.selectedImageEl.parentElement.firstElementChild;
+    return nextImg ? nextImg : this.selectedImageEl.parentElement.firstElementChild;
   },
 
   /**
@@ -123,10 +119,8 @@ const gallery = {
     // Получаем элемент слева от текущей открытой картинки.
     // Если элемент слева есть, его и возвращаем, если нет, то берем последний элемент в контейнере миниатюр.
     let prevImg = this.selectedImageEl.previousElementSibling ;
-    if (prevImg !== null) {
-      return prevImg;
-    }
-    return this.selectedImageEl.parentElement.lastElementChild;
+
+    return prevImg ? prevImg : this.selectedImageEl.parentElement.lastElementChild;
   },
 
   /**
