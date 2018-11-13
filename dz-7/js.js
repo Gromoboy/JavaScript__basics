@@ -147,7 +147,7 @@ const map = {
   render(snakePointsArray, foodPoint) {
     // Чистим карту от предыдущего рендера, всем занятым ячейкам оставляем только класс cell.
     for (const cell of this.usedCells) {
-      cell.className = 'cell';
+       cell.className = 'cell';
     }
     // Очищаем массив с занятыми ячейками, при отображении сейчас его соберем заново.
     this.usedCells = [];
@@ -165,7 +165,7 @@ const map = {
     // Отображаем еду.
     foodCell.classList.add('food');
     // Добавляем элемент ячейки еды в массив занятых точек на карте.
-    this.usedCells.push(foodPoint);
+    this.usedCells.push(foodCell);
   },
 };
 
