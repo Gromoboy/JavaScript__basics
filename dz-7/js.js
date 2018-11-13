@@ -353,6 +353,14 @@ const status = {
   isStopped() {
     return this.condition === 'stopped';
   },
+
+  /**
+   * Проверяет является ли статус "finished".
+   * @returns {boolean} true, если статус "finished", иначе false.
+   */
+  isFinished() {
+    return this.condition === 'finished';
+  }
 };
 
 /**
@@ -576,6 +584,10 @@ const game = {
    * @param {KeyboardEvent} event
    */
   keyDownHandler(event) {
+    // горячая клавиша по остановке - запуску игрыМ
+    if (event.code === 'Space') {
+      this.status.isFinished() ? this.newGameClickHandler() : this.playClickHandler();
+    }
     // Если статус игры не "играем", значит обрабатывать ничего не нужно.
     if (!this.status.isPlaying()) {
       return;
