@@ -370,7 +370,16 @@ const game = {
   snake,
   food,
   status,
+  score: 0,
   tickInterval: null,
+  /**
+   * добавляет текст к элементу по селектору
+   * @param {string} selector - селектор для поиска элемента
+   * @param {string} text - добавляемый текс
+   */
+  addTextToEl(selector, text) {
+    document.querySelector(selector).appendChild(document.createTextNode(text));
+  },
 
   /**
    * Инициализация игры.
@@ -388,6 +397,7 @@ const game = {
       }
       return;
     }
+    this.addTextToEl('.score', '/' + this.config.getWinFoodCount());
     // Инициализируем карту.
     this.map.init(this.config.getRowsCount(), this.config.getColsCount());
     // Устанавливаем обработчики событий.
@@ -406,6 +416,8 @@ const game = {
     this.snake.init(this.getStartSnakeBody(), 'up');
     // Ставим еду на карту в случайную пустую ячейку.
     this.food.setCoordinates(this.getRandomFreeCoordinates());
+    // Обнуляем счет игры
+    this.score = 0;
     // Отображаем все что нужно для игры.
     this.render();
   },
@@ -456,6 +468,8 @@ const game = {
     }
     // Если следующий шаг будет на еду, то заходим в if.
     if (this.food.isOnPoint(this.snake.getNextStepHeadPoint())) {
+      //Увеличиваем очко
+      this.score++;
       // Прибавляем к змейке ячейку.
       this.snake.growUp();
       // Ставим еду в свободную ячейку.
@@ -513,6 +527,7 @@ const game = {
    */
   render() {
     this.map.render(this.snake.getBody(), this.food.getCoordinates());
+    document.getElementById("score").innerText = this.score;
   },
 
   /**
@@ -637,4 +652,4 @@ const game = {
 };
 
 // При загрузке страницы инициализируем игру.
-window.onload = game.init({speed: 5});
+window.onload = game.init({speed: 5, winFoodCount: 5});
