@@ -144,10 +144,11 @@ const map = {
    * @param {{x: int, y: int}} foodPoint Точка еды.
    * @see {@link https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach|Array.prototype.forEach()}
    */
-  render(snakePointsArray, foodPoint) {
+  render(snakePointsArray, foodPoint, dir) {
     // Чистим карту от предыдущего рендера, всем занятым ячейкам оставляем только класс cell.
     for (const cell of this.usedCells) {
        cell.className = 'cell';
+       cell.innerHTML = '';
     }
     // Очищаем массив с занятыми ячейками, при отображении сейчас его соберем заново.
     this.usedCells = [];
@@ -157,6 +158,10 @@ const map = {
       const snakeCell = this.cells[`x${point.x}_y${point.y}`];
       // Если первый элемент массива, значит это голова, иначе тело.
       snakeCell.classList.add(idx === 0 ? 'snakeHead' : 'snakeBody');
+      // ридать голове змейки напраление через закругление
+      if (dir && snakeCell.classList.contains('snakeHead')) {
+        this.roundCellSide(snakeCell, dir);
+      }
       // Добавляем элемент ячейки змейки в массив занятых точек на карте.
       this.usedCells.push(snakeCell);
     });
@@ -167,7 +172,28 @@ const map = {
     // Добавляем элемент ячейки еды в массив занятых точек на карте.
     this.usedCells.push(foodCell);
   },
+  /**
+   * закругляет бок ячейки
+   * @param {Element} cell укфзание ячейки
+   * @param {string} side указание какого бока
+   */
+  roundCellSide(cell, side) {
+    switch (side) {
+      case 'down':
+        cell.classList.add('down');
+        break;
+      case 'left':
+        cell.classList.add('left');
+        break;
+      case 'right':
+        cell.classList.add('right');
+        break;
+      case 'up':
+        cell.classList.add('up');
+    }
+  }
 };
+
 
 /**
  * Объект змейки.
@@ -534,7 +560,7 @@ const game = {
    * Отображает все для игры, карту, еду и змейку.
    */
   render() {
-    this.map.render(this.snake.getBody(), this.food.getCoordinates());
+    this.map.render(this.snake.getBody(), this.food.getCoordinates(), this.snake.getLastStepDirection());
     document.getElementById("score").innerText = this.score;
   },
 

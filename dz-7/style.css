@@ -24,8 +24,8 @@
     justify-content: center;
 }
 td.cell{
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     border: 1px dotted #eee;
     border-collapse: collapse;
 }
@@ -37,6 +37,26 @@ td.cell{
 }
 .snakeHead{
     background: #9b0013;
+    font-weight: bold;
+    font-size: 16px;
+}
+.down{
+     border-bottom-left-radius: 15px;
+     border-bottom-right-radius: 15px;
+ }
+
+.left{
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.right{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.up{
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
 }
 .disabled {
     background: #7c7c7c;
