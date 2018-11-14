@@ -513,7 +513,7 @@ const game = {
     // Ставим статус игры в "остановлена".
     this.stop();
     // Инициализируем змейку.
-    this.snake.init(this.getStartSnakeBody(), 'up', this.config.getColsCount(), this.config.getRowsCount());
+    this.snake.init(this.getStartSnakeBody(), 'up', this.config.getColsCount() - 1, this.config.getRowsCount() - 1);
     // Ставим еду на карту в случайную пустую ячейку.
     this.food.setCoordinates(this.getRandomFreeCoordinates());
     // Обнуляем счет игры
