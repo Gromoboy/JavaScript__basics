@@ -145,6 +145,7 @@ const map = {
    * @see {@link https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach|Array.prototype.forEach()}
    */
   render(snakePointsArray, foodPoint, dir) {
+
     // Чистим карту от предыдущего рендера, всем занятым ячейкам оставляем только класс cell.
     for (const cell of this.usedCells) {
        cell.className = 'cell';
@@ -284,14 +285,20 @@ const snake = {
     switch (this.direction) {
       case 'up':
         next = {x: firstPoint.x, y: firstPoint.y - 1};
-        next.y = next.y < 0 ? this.maxY : next.y;
+        if (next.y < 1) {next.y = this.maxY};
         return next;
       case 'right':
-        return {x: firstPoint.x + 1, y: firstPoint.y};
+        next = {x: firstPoint.x + 1, y: firstPoint.y};
+        if (next.x > this.maxX) {next.x = 0;}
+        return next;
       case 'down':
-        return {x: firstPoint.x, y: firstPoint.y + 1};
+        next = {x: firstPoint.x, y: firstPoint.y + 1};
+        if (next.y > this.maxY) {next.y = 0;}
+        return next;
       case 'left':
-        return {x: firstPoint.x - 1, y: firstPoint.y};
+        next = {x: firstPoint.x - 1, y: firstPoint.y};
+        if (next.x < 0) {next.x = this.maxX;}
+        return next;
     }
   },
 
@@ -395,6 +402,57 @@ const status = {
     return this.condition === 'finished';
   }
 };
+/**
+ * Объект счетчика. Подсчитывает очки пользователя.
+ * @property {int} count Очки пользователя.
+ * @property {HTMLElement} countEl DOM-элемент для вставки числа отображающего
+ * количество очков пользователя.
+ */
+const score = {
+  count: null,
+  countEl: null,
+
+  /**
+   * Инициализацирует счетчик.
+   */
+  init() {
+    // Находим элемент где будут отображаться очки пользователя
+    // и записываем в свойство countEl.
+    // Вызываем метод drop текущего объекта чтоб сбросить счетчик.
+    this.countEl = document.getElementById("score");
+    this.drop();
+  },
+
+  /**
+   * Увеличиваем счетчик.
+   * @param {number} num число на которое увеличиваем
+   */
+  increase(num) {
+    // Инкрементируем счет пользователя
+    // Вызываем метод render текущего объекта
+    this.count += num;
+    this.render();
+  },
+
+  /**
+   * Сбрасывает счетчик.
+   */
+  drop() {
+    // Ставим счет в 0.
+    // Вызываем метод render текущего объекта
+    this.count = 0;
+  },
+
+  /**
+   * Отображает количество очков пользователю.
+   */
+  render() {
+    // Отображаем счет пользователя в DOM-элемент.
+
+    this.countEl.innerText = this.count;
+  }
+};
+
 
 /**
  * Объект игры.
@@ -411,7 +469,7 @@ const game = {
   snake,
   food,
   status,
-  score: 0,
+  score,
   tickInterval: null,
   /**
    * добавляет текст к элементу по селектору
@@ -438,6 +496,7 @@ const game = {
       }
       return;
     }
+    this.score.init();
     this.addTextToEl('.score', '/' + this.config.getWinFoodCount());
     // Инициализируем карту.
     this.map.init(this.config.getRowsCount(), this.config.getColsCount());
@@ -458,7 +517,7 @@ const game = {
     // Ставим еду на карту в случайную пустую ячейку.
     this.food.setCoordinates(this.getRandomFreeCoordinates());
     // Обнуляем счет игры
-    this.score = 0;
+    this.score.drop();
     // Отображаем все что нужно для игры.
     this.render();
   },
@@ -510,7 +569,7 @@ const game = {
     // Если следующий шаг будет на еду, то заходим в if.
     if (this.food.isOnPoint(this.snake.getNextStepHeadPoint())) {
       //Увеличиваем очко
-      this.score++;
+      this.score.increase(1);
       // Прибавляем к змейке ячейку.
       this.snake.growUp();
       // Ставим еду в свободную ячейку.
@@ -568,7 +627,6 @@ const game = {
    */
   render() {
     this.map.render(this.snake.getBody(), this.food.getCoordinates(), this.snake.getLastStepDirection());
-    document.getElementById("score").innerText = this.score;
   },
 
   /**
